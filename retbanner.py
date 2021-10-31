@@ -23,23 +23,6 @@ def main():
 main()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 age=10
 x='pass' if age>=18 else 'fail'
 print(x)
