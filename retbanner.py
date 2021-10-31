@@ -1,4 +1,3 @@
-#!/home/rishav/anaconda3/bin/python
 from socket import *
 
 def retBanner(ip,port):
