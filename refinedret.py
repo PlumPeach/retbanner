@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from socket import *
 import optparse
 from termcolor import colored
@@ -13,21 +14,21 @@ def retBanner(ip,port):
 		return banner
 
 	except:
-		return
-
-	finally:
+		print(colored('[-]Port %d is closed '%port,'red'))
 		sock.close()
 
 def name_resolver(ip,port):
+	tgtName=''
+	setdefaulttimeout(1)
+	tgtip=gethostbyname(ip)
 	try:
-		tgtip=gethostbyname(ip)
+		tgtName=gethostbyaddr(ip)
 	except:
-		print(colored('Cannot get hostname for: '+ip,'yellow'))
-
-	try:
-		tgtName=gethostbyaddr(tgtip)
-		print(colored('[+]Hostname: '+tgtName,'yellow'))
-	except:
+		print(colored('[*]Cannot resolve hostname for: '+tgtip,'yellow'))
+	
+	if tgtName!='':
+		print(colored('[+]Hostname: '+tgtName[0],'yellow'))
+	if tgtip!='':
 		print(colored('[+]Ip Address: '+tgtip,'yellow'))
 
 
