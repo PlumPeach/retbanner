@@ -8,6 +8,7 @@ def retBanner(ip,port):
 	try:
 		sock=socket()
 		sock.connect((ip,port))
+		print(colored('[+] Port ' + str(port) + " is open", 'green'))
 		banner=sock.recv(1024)
 		banner=banner.decode('utf-8')
 		return banner
