@@ -3,7 +3,7 @@ import optparse
 from threading import *
 from termcolor import colored
 
-# thread to look up
+# threads to look up
 # https://stackoverflow.com/questions/17667903/python-socket-receive-large-amount-of-data
 # https://stackoverflow.com/questions/14167850/socket-programming-in-python-doubts/14168176#14168176
 
