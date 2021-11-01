@@ -6,16 +6,19 @@ from termcolor import colored
 
 def retBanner(ip,port):
 	setdefaulttimeout(1)
+	sock=socket(AF_INET,SOCK_STREAM)
 	try:
-		sock=socket()
 		sock.connect((ip,port))
 		banner=sock.recv(1024)
 		banner=banner.decode('utf-8')
-		return banner
-
+		print(colored('[+]Port %d is open'%port,'green'))
 	except:
-		print(colored('[-]Port %d is closed '%port,'red'))
-		sock.close()
+		banner=''
+		print(colored('[-]Port %d is closed'%port,'red'))
+
+	sock.close()
+	return banner	
+		
 
 def name_resolver(ip,port):
 	tgtName=''
@@ -45,7 +48,7 @@ def main():
 	banner=str(retBanner(ip,port))
 	if(banner):
 		print(colored('[*] '+ip+'/%d: '%port+banner,'green'))
-
+	
 	name_resolver(ip,port)
 
 
