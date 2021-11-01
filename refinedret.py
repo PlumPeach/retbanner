@@ -22,13 +22,13 @@ def name_resolver(ip,port):
 	try:
 		tgtip=gethostbyname(ip)
 	except:
-		print(colored('Cannot get hostname for: '+ip),'yellow')
+		print(colored('Cannot get hostname for: '+ip,'yellow'))
 
 	try:
 		tgtName=gethostbyaddr(tgtip)
-		print(colored('Hostname: '+tgtName,'pink'))
+		print(colored('[+]Hostname: '+tgtName,'yellow'))
 	except:
-		return
+		print(colored('[+]Ip Address: '+tgtip,'yellow'))
 
 
 def main():
