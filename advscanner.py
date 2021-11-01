@@ -1,29 +1,22 @@
+#!/usr/bin/python
 from socket import *
 import optparse
 from threading import *
 from termcolor import colored
-
-# threads to look up
-# https://stackoverflow.com/questions/17667903/python-socket-receive-large-amount-of-data
-# https://stackoverflow.com/questions/14167850/socket-programming-in-python-doubts/14168176#14168176
 
 # This function actually performs the scanning part
 def Scanner(tgtHost,tgtport):
 	try:
 		sock=socket(AF_INET,SOCK_STREAM)
 		sock.connect((tgtHost,tgtport))
-		banner=sock.recv(1024)
-		banner = banner.decode('utf-8')
-		print(colored('[+] %d/TCP is open'%tgtport,'green'), 
-			'\n', 
-			colored('[*] '+tgtHost+': '+ str(banner), 'yellow'
-		))
+		print(colored('[+] %d/TCP is open'%tgtport,'green'))
 
 	except:
 		print(colored('[-] %d/TCP is closed'%tgtport,'red'))
 
 	finally:
 		sock.close()
+
 
 # This is for resolving if the user specifies the host as a name
 #and not as a ip, it also prints out
@@ -44,7 +37,7 @@ def portScan(tgtHost,tgtPorts):
 
 	setdefaulttimeout(1)
 	for tgtport in tgtPorts:
-		t = Thread(target=Scanner, args=(tgtHost,int(tgtport)))
+		t =Thread(target=Scanner, args=(tgtHost,int(tgtport)))
 		t.start()
 
 
@@ -54,11 +47,11 @@ def portScan(tgtHost,tgtPorts):
 def main():
 	parser = optparse.OptionParser('Usage of program:' + ' -H <target host> -P <target Ports>')
 	parser.add_option('-H', dest='tgtHost',type='string',help='Specify target host')
-	parser.add_option('-P', dest='tgtPorts',type='string',help='Specify target ports seperated by commas')
-	(options,args) = parser.parse_args()
-	tgtHost = options.tgtHost
-	tgtPorts = str(options.tgtPorts).split(',')
-	if(tgtHost == None or tgtPorts[0] == None):
+	parser.add_option('-P', dest='tgtPorts',type='string',help='Specify target ports')
+	(options,args)=parser.parse_args()
+	tgtHost=options.tgtHost
+	tgtPorts=str(options.tgtPorts).split(',')
+	if(tgtHost==None or tgtPorts[0]==None):
 		print(parser.usage)
 		exit(0)
 	portScan(tgtHost,tgtPorts)
