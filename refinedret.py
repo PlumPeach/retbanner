@@ -1,14 +1,32 @@
 from socket import *
 import optparse
 from termcolor import colored
+
+
 def retBanner(ip,port):
 	setdefaulttimeout(1)
 	try:
 		sock=socket()
 		sock.connect((ip,port))
 		banner=sock.recv(1024)
+		banner=banner.decode('utf-8')
 		return banner
 
+	except:
+		return
+
+	finally:
+		sock.close()
+
+def name_resolver(ip,port):
+	try:
+		tgtip=gethostbyname(ip)
+	except:
+		print(colored('Cannot get hostname for: '+ip),'yellow')
+
+	try:
+		tgtName=gethostbyaddr(tgtip)
+		print(colored('Hostname: '+tgtName,'pink'))
 	except:
 		return
 
@@ -26,6 +44,8 @@ def main():
 	banner=str(retBanner(ip,port))
 	if(banner):
 		print(colored('[*] '+ip+'/%d: '%port+banner,'green'))
+
+	name_resolver(ip,port)
 
 
 
